@@ -2,16 +2,36 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 
+/*const images = {};
+const centerText = {};
+fetch('images/data.json')
+  .then(res => res.json())
+  .then(data => {
+    //console.log(data)
+    centerText.txt = data.centerText;
+    images.files = data.files;
+  }) */
+  
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+  
+fetch('images/data.json')
+  .then(res => res.json())
+  .then(data => {
+    const images = {
+      pfp: data.profilePic,
+      files: data.files
+    }
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+    root.render(
+      <React.StrictMode>
+        <App centerText={data.centerText} images={images}/>
+      </React.StrictMode>
+    );
+  })
+
+/*root.render(
+  <React.StrictMode>
+    <App centerText={centerText} images={images}/>
+  </React.StrictMode>
+);*/
